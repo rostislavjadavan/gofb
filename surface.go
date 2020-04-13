@@ -97,7 +97,7 @@ func (s *Surface) DrawRegion(x int, y int, r Region) {
 		NewPoint2(float32(x), float32(y)),
 		NewPoint2(float32(x+r.w*s.Scale), float32(y+r.h*s.Scale)),
 		NewPoint2(float32(r.x)/float32(s.Width), float32(r.y)/float32(s.Height)),
-		NewPoint2(float32(r.x)/float32(s.Width+r.w)/float32(s.Width), float32(r.y)/float32(s.Height)+float32(r.h)/float32(s.Height)),
+		NewPoint2(float32(r.x+r.w)/float32(s.Width), float32(r.y+r.h)/float32(s.Height)),
 		s.texture,
 	)
 }
@@ -125,13 +125,13 @@ func (s *Surface) draw(p1 Point2, p2 Point2, t1 Point2, t2 Point2, tex *Texture)
 
 	White.GL()
 	gl.Begin(gl.QUADS)
-	gl.TexCoord2f(t1.x, t1.y)
-	gl.Vertex2f(p1.x, p1.y)
-	gl.TexCoord2f(t2.x, t1.y)
-	gl.Vertex2f(p2.x, p1.y)
-	gl.TexCoord2f(t2.x, t2.y)
-	gl.Vertex2f(p2.x, p2.y)
-	gl.TexCoord2f(t1.x, t2.y)
-	gl.Vertex2f(p1.x, p2.y)
+	gl.TexCoord2f(t1.X, t1.Y)
+	gl.Vertex2f(p1.X, p1.Y)
+	gl.TexCoord2f(t2.X, t1.Y)
+	gl.Vertex2f(p2.X, p1.Y)
+	gl.TexCoord2f(t2.X, t2.Y)
+	gl.Vertex2f(p2.X, p2.Y)
+	gl.TexCoord2f(t1.X, t2.Y)
+	gl.Vertex2f(p1.X, p2.Y)
 	gl.End()
 }

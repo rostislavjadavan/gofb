@@ -38,14 +38,14 @@ func NewRegion(x int, y int, w int, h int) Region {
 }
 
 type Point2 struct {
-	x float32
-	y float32
+	X float32
+	Y float32
 }
 
 func NewPoint2(x float32, y float32) Point2 {
-	return Point2{x: x, y: y}
+	return Point2{X: x, Y: y}
 }
 
 func (p *Point2) GL() {
-	gl.Vertex2f(p.x, p.y)
+	gl.Vertex2f(p.X, p.Y)
 }
