@@ -20,6 +20,7 @@ type Window struct {
 	framesCount     int64
 
 	inputPress []bool
+	cursorPos  Point2
 }
 
 // NewWindow create new OpenGL window
@@ -52,8 +53,11 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 	w := Window{Width: width, Height: height, Fullscreen: fullscreen, window: window}
 	w.set2DProjection()
 	w.lastFrameTime = time.Now()
-	w.inputPress = make([]bool, 405)
+	w.inputPress = make([]bool, 505)
 	window.SetKeyCallback(w.keyCallback)
+	w.cursorPos = NewPoint2(0, 0)
+	window.SetCursorPosCallback(w.cursorPositionCallback)
+	window.SetMouseButtonCallback(w.mouseButtonCallback)
 	w.running = true
 
 	return &w
@@ -94,8 +98,12 @@ func (w *Window) GetFPS() float32 {
 	return float32(w.framesCount) / float32(w.globalElapsedMs) * 1000
 }
 
-func (w *Window) IsKey(key int) bool {
-	return w.inputPress[key]
+func (w *Window) IsInput(inputCode int) bool {
+	return w.inputPress[inputCode]
+}
+
+func (w *Window) GetCursorPos() Point2 {
+	return w.cursorPos
 }
 
 // IsRunning check if application is running
@@ -122,6 +130,40 @@ func (w *Window) keyCallback(window *glfw.Window, key glfw.Key, scancode int, ac
 		w.inputPress[key] = false
 	}
 
+	w.setModKey(mods)
+}
+
+func (w *Window) cursorPositionCallback(window *glfw.Window, x float64, y float64) {
+	w.cursorPos.X = float32(x)
+	w.cursorPos.Y = float32(y)
+}
+
+func (w *Window) mouseButtonCallback(window *glfw.Window, button glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
+	switch action {
+	case glfw.Repeat:
+	case glfw.Press:
+		w.inputPress[w.glfwMouseToInput(button)] = true
+		break
+	default:
+		w.inputPress[w.glfwMouseToInput(button)] = false
+	}
+
+	w.setModKey(mods)
+}
+
+func (w *Window) glfwMouseToInput(button glfw.MouseButton) int {
+	switch button {
+	case glfw.MouseButtonLeft:
+		return MouseButtonLeft
+	case glfw.MouseButtonMiddle:
+		return MouseButtonMiddle
+	case glfw.MouseButtonRight:
+		return MouseButtonRight
+	}
+	return InputUnknown
+}
+
+func (w *Window) setModKey(mods glfw.ModifierKey) {
 	w.inputPress[KeyAlt] = false
 	w.inputPress[KeyControl] = false
 	w.inputPress[KeyShift] = false
