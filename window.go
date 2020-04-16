@@ -19,7 +19,7 @@ type Window struct {
 	globalElapsedMs int64
 	framesCount     int64
 
-	keyPress []bool
+	inputPress []bool
 }
 
 // NewWindow create new OpenGL window
@@ -52,7 +52,7 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 	w := Window{Width: width, Height: height, Fullscreen: fullscreen, window: window}
 	w.set2DProjection()
 	w.lastFrameTime = time.Now()
-	w.keyPress = make([]bool, 1024)
+	w.inputPress = make([]bool, 405)
 	window.SetKeyCallback(w.keyCallback)
 	w.running = true
 
@@ -94,8 +94,8 @@ func (w *Window) GetFPS() float32 {
 	return float32(w.framesCount) / float32(w.globalElapsedMs) * 1000
 }
 
-func (w *Window) IsKey(key glfw.Key) bool {
-	return w.keyPress[key]
+func (w *Window) IsKey(key int) bool {
+	return w.inputPress[key]
 }
 
 // IsRunning check if application is running
@@ -116,10 +116,30 @@ func (w *Window) keyCallback(window *glfw.Window, key glfw.Key, scancode int, ac
 	switch action {
 	case glfw.Repeat:
 	case glfw.Press:
-		w.keyPress[key] = true
+		w.inputPress[key] = true
 		break
 	default:
-		w.keyPress[key] = false
+		w.inputPress[key] = false
+	}
+
+	w.inputPress[KeyAlt] = false
+	w.inputPress[KeyControl] = false
+	w.inputPress[KeyShift] = false
+	w.inputPress[KeySuper] = false
+
+	switch mods {
+	case glfw.ModAlt:
+		w.inputPress[KeyAlt] = true
+		break
+	case glfw.ModControl:
+		w.inputPress[KeyControl] = true
+		break
+	case glfw.ModShift:
+		w.inputPress[KeyShift] = true
+		break
+	case glfw.ModSuper:
+		w.inputPress[KeySuper] = true
+		break
 	}
 }
 
