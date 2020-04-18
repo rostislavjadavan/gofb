@@ -3,7 +3,7 @@ package gofb
 import (
 	"github.com/go-gl/gl/v2.1/gl"
 	_ "image/jpeg" // support for jpeg format
-	_ "image/png" // support for png format
+	_ "image/png"  // support for png format
 	"strconv"
 )
 

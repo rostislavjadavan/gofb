@@ -136,7 +136,7 @@ func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Textu
 
 	gl.PushMatrix()
 	gl.LoadIdentity()
-	gl.Translatef(pos.X + size.X / 2, pos.Y + size.Y / 2, 0)
+	gl.Translatef(pos.X+size.X/2, pos.Y+size.Y/2, 0)
 	gl.Rotatef(s.Rotation, 0, 0, 1)
 
 	ColorWhite.GL()

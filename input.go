@@ -2,17 +2,17 @@ package gofb
 
 // Keyboard and mouse inputs
 const (
-	InputUnknown  = -1
-	KeySpace      = 32
-	KeyApostrophe = 39 /* ' */
-	KeyComma      = 44 /* , */
-	KeyMinus      = 45 /* - */
-	KeyPeriod     = 46 /* . */
-	KeySlash      = 47 /* / */
-	Key0          = 48
-	Key1          = 49
-	Key2          = 50
-	Key3          = 51
+	InputUnknown      = -1
+	KeySpace          = 32
+	KeyApostrophe     = 39 /* ' */
+	KeyComma          = 44 /* , */
+	KeyMinus          = 45 /* - */
+	KeyPeriod         = 46 /* . */
+	KeySlash          = 47 /* / */
+	Key0              = 48
+	Key1              = 49
+	Key2              = 50
+	Key3              = 51
 	Key4              = 52
 	Key5              = 53
 	Key6              = 54

@@ -19,6 +19,7 @@ func NewColor(r uint8, g uint8, b uint8, a uint8) Color {
 
 // ColorWhite is white Color
 var ColorWhite = Color{r: 255, g: 255, b: 255, a: 255}
+
 // ColorBlack is black Color
 var ColorBlack = Color{r: 0, g: 0, b: 0, a: 255}
 
