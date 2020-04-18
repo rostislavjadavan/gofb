@@ -95,17 +95,17 @@ func (w *Window) GetTotalElapsedMs() int64 {
 	return w.globalElapsedMs
 }
 
-// Get average frames per second
+// GetFPS get average frames per second
 func (w *Window) GetFPS() float32 {
 	return float32(w.framesCount) / float32(w.globalElapsedMs) * 1000
 }
 
-// Check if input was pressed
+// IsInput check if input was pressed
 func (w *Window) IsInput(inputCode int) bool {
 	return w.inputPress[inputCode]
 }
 
-// Get mouse cursor position
+// GetCursorPos get mouse cursor position
 func (w *Window) GetCursorPos() Point2 {
 	return w.cursorPos
 }

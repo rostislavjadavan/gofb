@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-// Represent pixel buffer
+// Surface represent pixel buffer
 type Surface struct {
 	Width       int
 	Height      int
@@ -19,7 +19,7 @@ type Surface struct {
 	needsUpdate bool
 }
 
-// Create new empty surface
+// NewSurface create new empty surface
 func NewSurface(width int, height int) *Surface {
 	pixels := make([]byte, width*height*4)
 	tex := NewTextureFromBytes(width, height, &pixels)
@@ -33,7 +33,7 @@ func NewSurface(width int, height int) *Surface {
 	}
 }
 
-// Create new surface from given input byte array (expecting RGBA format)
+// NewSurfaceFromBytes create new surface from given input byte array (expecting RGBA format)
 func NewSurfaceFromBytes(width int, height int, bytes *[]byte) *Surface {
 	tex := NewTextureFromBytes(width, height, bytes)
 	return &Surface{
@@ -47,7 +47,7 @@ func NewSurfaceFromBytes(width int, height int, bytes *[]byte) *Surface {
 	}
 }
 
-// Create surface from image file
+// NewSurfaceFromFile create surface from image file
 func NewSurfaceFromFile(file string) (*Surface, error) {
 	imgFile, err := os.Open(file)
 	if err != nil {
@@ -67,7 +67,7 @@ func NewSurfaceFromFile(file string) (*Surface, error) {
 	return NewSurfaceFromBytes(rgba.Rect.Size().X, rgba.Rect.Size().Y, &rgba.Pix), nil
 }
 
-// Draw pixel at surface
+// SetPixel draw pixel at surface
 func (s *Surface) SetPixel(x int, y int, c Color) {
 	i := (y*s.Width + x) * 4
 	p := *s.pixels
@@ -78,7 +78,7 @@ func (s *Surface) SetPixel(x int, y int, c Color) {
 	s.needsUpdate = true
 }
 
-// Get color of pixel
+// GetPixel return color of pixel
 func (s *Surface) GetPixel(x int, y int) Color {
 	i := (y*s.Width + x) * 4
 	p := *s.pixels
@@ -101,7 +101,7 @@ func (s *Surface) Draw(x int, y int) {
 	)
 }
 
-// Draw region of surface on the screen
+// DrawRegion draw region of surface on the screen
 func (s *Surface) DrawRegion(x int, y int, r Region) {
 	s.draw(
 		NewPoint2(float32(x), float32(y)),

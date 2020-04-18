@@ -10,7 +10,7 @@ type Font struct {
 	Handle *gltext.Font
 }
 
-// Create new Font from given filename (.ttf expected)
+// NewFont create new Font from given filename (.ttf expected)
 func NewFont(filename string, size int32) (*Font, error) {
 	fd, err := os.Open(filename)
 	if err != nil {
