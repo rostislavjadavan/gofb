@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Window
+// Window represents window object
 type Window struct {
 	Width      int
 	Height     int
@@ -36,7 +36,7 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 1)
 
-	var monitor *glfw.Monitor = nil
+	var monitor *glfw.Monitor
 	if fullscreen {
 		monitor = glfw.GetPrimaryMonitor()
 	}
@@ -85,7 +85,7 @@ func (w *Window) FinalizeFrame() {
 	glfw.PollEvents()
 }
 
-// GetDeltaTime return number of milliseconds elapsed when rendering last frame
+// GetDeltaTimeMs return number of milliseconds elapsed when rendering last frame
 func (w *Window) GetDeltaTimeMs() int64 {
 	return w.frameDeltaMs
 }
