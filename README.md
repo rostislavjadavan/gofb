@@ -64,3 +64,11 @@ http://github.com/rostislavjadavan/gofb-examples
 
 - https://github.com/go-gl/glfw
 - https://github.com/go-gl/gltext
+
+## Logo
+
+http://github.com/rostislavjadavan/gofb-logo
+
+## License
+
+[MIT](LICENSE)
