@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+// Represent pixel buffer
 type Surface struct {
 	Width       int
 	Height      int
@@ -18,6 +19,7 @@ type Surface struct {
 	needsUpdate bool
 }
 
+// Create new empty surface
 func NewSurface(width int, height int) *Surface {
 	pixels := make([]byte, width*height*4)
 	tex := NewTextureFromBytes(width, height, &pixels)
@@ -31,6 +33,7 @@ func NewSurface(width int, height int) *Surface {
 	}
 }
 
+// Create new surface from given input byte array (expecting RGBA format)
 func NewSurfaceFromBytes(width int, height int, bytes *[]byte) *Surface {
 	tex := NewTextureFromBytes(width, height, bytes)
 	return &Surface{
@@ -44,6 +47,7 @@ func NewSurfaceFromBytes(width int, height int, bytes *[]byte) *Surface {
 	}
 }
 
+// Create surface from image file
 func NewSurfaceFromFile(file string) (*Surface, error) {
 	imgFile, err := os.Open(file)
 	if err != nil {
@@ -63,6 +67,7 @@ func NewSurfaceFromFile(file string) (*Surface, error) {
 	return NewSurfaceFromBytes(rgba.Rect.Size().X, rgba.Rect.Size().Y, &rgba.Pix), nil
 }
 
+// Draw pixel at surface
 func (s *Surface) SetPixel(x int, y int, c Color) {
 	i := (y*s.Width + x) * 4
 	p := *s.pixels
@@ -73,6 +78,7 @@ func (s *Surface) SetPixel(x int, y int, c Color) {
 	s.needsUpdate = true
 }
 
+// Get color of pixel
 func (s *Surface) GetPixel(x int, y int) Color {
 	i := (y*s.Width + x) * 4
 	p := *s.pixels
@@ -84,6 +90,7 @@ func (s *Surface) GetPixel(x int, y int) Color {
 	}
 }
 
+// Draw surface on the screen
 func (s *Surface) Draw(x int, y int) {
 	s.draw(
 		NewPoint2(float32(x), float32(y)),
@@ -94,6 +101,7 @@ func (s *Surface) Draw(x int, y int) {
 	)
 }
 
+// Draw region of surface on the screen
 func (s *Surface) DrawRegion(x int, y int, r Region) {
 	s.draw(
 		NewPoint2(float32(x), float32(y)),
@@ -104,6 +112,7 @@ func (s *Surface) DrawRegion(x int, y int, r Region) {
 	)
 }
 
+// Release surface from memory and gpu
 func (s *Surface) Release() {
 	s.pixels = nil
 	s.texture.Release()
@@ -130,7 +139,7 @@ func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Textu
 	gl.Translatef(pos.X + size.X / 2, pos.Y + size.Y / 2, 0)
 	gl.Rotatef(s.Rotation, 0, 0, 1)
 
-	White.GL()
+	ColorWhite.GL()
 	gl.Begin(gl.QUADS)
 	gl.TexCoord2f(t1.X, t1.Y)
 	gl.Vertex2f(-size.X/2, -size.Y/2)

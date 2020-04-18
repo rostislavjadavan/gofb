@@ -2,11 +2,12 @@ package gofb
 
 import (
 	"github.com/go-gl/gl/v2.1/gl"
-	_ "image/jpeg"
-	_ "image/png"
+	_ "image/jpeg" // support for jpeg format
+	_ "image/png" // support for png format
 	"strconv"
 )
 
+// Texture represent OpenGL texture
 type Texture struct {
 	Handle uint32
 	Name   string
@@ -14,14 +15,17 @@ type Texture struct {
 	Height int
 }
 
+// Bind to texture to current context
 func (t *Texture) Bind() {
 	gl.BindTexture(gl.TEXTURE_2D, t.Handle)
 }
 
+// Release texture from gpu memory
 func (t *Texture) Release() {
 	gl.DeleteTextures(1, &t.Handle)
 }
 
+// NewTextureFromBytes creates new texture from given byte array (expected is RGBA format)
 func NewTextureFromBytes(width int, height int, pixels *[]byte) *Texture {
 	var handle uint32
 	gl.Enable(gl.TEXTURE_2D)

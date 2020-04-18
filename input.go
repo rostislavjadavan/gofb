@@ -1,5 +1,6 @@
 package gofb
 
+// Keyboard and mouse inputs
 const (
 	InputUnknown  = -1
 	KeySpace      = 32
