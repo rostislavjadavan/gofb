@@ -2,6 +2,7 @@ package gofb
 
 import (
 	"github.com/go-gl/gl/v2.1/gl"
+	_ "image/jpeg"
 	_ "image/png"
 	"strconv"
 )
