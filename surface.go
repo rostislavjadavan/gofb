@@ -10,13 +10,15 @@ import (
 
 // Surface represent pixel buffer
 type Surface struct {
-	Width       int
-	Height      int
-	Scale       int
-	Rotation    float32
-	pixels      *[]byte
-	texture     *Texture
-	needsUpdate bool
+	Width          int
+	Height         int
+	Scale          int
+	Rotation       float32
+	FlipHorizontal bool
+	FlipVertical   bool
+	pixels         *[]byte
+	texture        *Texture
+	needsUpdate    bool
 }
 
 // NewSurface create new empty surface
@@ -24,12 +26,14 @@ func NewSurface(width int, height int) *Surface {
 	pixels := make([]byte, width*height*4)
 	tex := NewTextureFromBytes(width, height, &pixels)
 	return &Surface{
-		Width:       width,
-		Height:      height,
-		Scale:       1,
-		pixels:      &pixels,
-		texture:     tex,
-		needsUpdate: false,
+		Width:          width,
+		Height:         height,
+		Scale:          1,
+		FlipHorizontal: false,
+		FlipVertical:   false,
+		pixels:         &pixels,
+		texture:        tex,
+		needsUpdate:    false,
 	}
 }
 
@@ -127,6 +131,12 @@ func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Textu
 	if s.needsUpdate {
 		s.update()
 		s.needsUpdate = false
+	}
+	if s.FlipHorizontal {
+		swapFloat32(&t1.X, &t2.X)
+	}
+	if s.FlipVertical {
+		swapFloat32(&t1.Y, &t2.Y)
 	}
 
 	gl.Enable(gl.TEXTURE_2D)
