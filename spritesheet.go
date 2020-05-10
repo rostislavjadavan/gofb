@@ -1,9 +1,9 @@
 package gofb
 
 type SpriteSheet struct {
-	surface     *Surface
-	frameWidth  int
-	frameHeight int
+	surface    *Surface
+	tileWidth  int
+	tileHeight int
 }
 
 func NewSpriteSheetFromFile(file string) (*SpriteSheet, error) {
@@ -12,23 +12,23 @@ func NewSpriteSheetFromFile(file string) (*SpriteSheet, error) {
 		return nil, err
 	}
 	return &SpriteSheet{
-		surface:     s,
-		frameWidth:  0,
-		frameHeight: 0,
+		surface:    s,
+		tileWidth:  0,
+		tileHeight: 0,
 	}, nil
 }
 
-func (s *SpriteSheet) SetFrameRegion(width int, height int) {
-	s.frameWidth = width
-	s.frameHeight = height
+func (s *SpriteSheet) SetTileSize(width int, height int) {
+	s.tileWidth = width
+	s.tileHeight = height
 }
 
 func (s *SpriteSheet) Surface() *Surface {
 	return s.surface
 }
 
-func (s *SpriteSheet) DrawFrame(x int, y int, fx int, fy int) {
-	r := NewRegion(fx*s.frameWidth, fy*s.frameHeight, s.frameWidth, s.frameHeight)
+func (s *SpriteSheet) DrawTile(x int, y int, tileX int, tileY int) {
+	r := NewRegion(tileX*s.tileWidth, tileY*s.tileHeight, s.tileWidth, s.tileHeight)
 	s.surface.DrawRegion(x, y, r)
 }
 

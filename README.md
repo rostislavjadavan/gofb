@@ -47,7 +47,7 @@ func main() {
 - load `png`, `jpg` images
 - scale to mimic pixel art
 - use custom `ttf` font 
-- sprite sheets (draw sub region of image)
+- sprite sheets (for tile set rendering)
 - keyboard and mouse input
 
 ## More examples
