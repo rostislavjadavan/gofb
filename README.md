@@ -58,7 +58,7 @@ http://github.com/rostislavjadavan/gofb-examples
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/animation/preview.gif)
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/tunnel/preview.jpg)
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/mouse/preview.gif)
-
+![](https://github.com/rostislavjadavan/gofb-examples/raw/master/roguelike/preview.jpg)
 
 ## Libraries used
 
