@@ -144,7 +144,6 @@ func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Textu
 	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 	tex.Bind()
 
-	gl.PushMatrix()
 	gl.LoadIdentity()
 	gl.Translatef(pos.X+size.X/2, pos.Y+size.Y/2, 0)
 	gl.Rotatef(s.Rotation, 0, 0, 1)
@@ -160,5 +159,4 @@ func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Textu
 	gl.TexCoord2f(t1.X, t2.Y)
 	gl.Vertex2f(-size.X/2, size.Y/2)
 	gl.End()
-	gl.PopMatrix()
 }

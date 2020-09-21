@@ -25,6 +25,20 @@ func (t *Texture) Release() {
 	gl.DeleteTextures(1, &t.Handle)
 }
 
+func (t *Texture) Update(width int, height int, pixels *[]byte) {
+	gl.BindTexture(gl.TEXTURE_2D, t.Handle)
+	gl.TexImage2D(
+		gl.TEXTURE_2D,
+		0,
+		gl.RGBA,
+		int32(width),
+		int32(height),
+		0,
+		gl.RGBA,
+		gl.UNSIGNED_BYTE,
+		gl.Ptr(*pixels))
+}
+
 // NewTextureFromBytes creates new texture from given byte array (expected is RGBA format)
 func NewTextureFromBytes(width int, height int, pixels *[]byte) *Texture {
 	var handle uint32
