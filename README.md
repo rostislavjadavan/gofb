@@ -47,7 +47,7 @@ func main() {
 - load `png`, `jpg` images
 - scale to mimic pixel art
 - use custom `ttf` font 
-- sprite sheets (draw sub region of image)
+- sprite sheets (for tile set rendering)
 - keyboard and mouse input
 
 ## More examples
@@ -58,7 +58,7 @@ http://github.com/rostislavjadavan/gofb-examples
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/animation/preview.gif)
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/tunnel/preview.jpg)
 ![](https://github.com/rostislavjadavan/gofb-examples/raw/master/mouse/preview.gif)
-
+![](https://github.com/rostislavjadavan/gofb-examples/raw/master/roguelike/preview.jpg)
 
 ## Libraries used
 

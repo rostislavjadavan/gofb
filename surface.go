@@ -123,8 +123,7 @@ func (s *Surface) Release() {
 }
 
 func (s *Surface) update() {
-	s.texture.Release()
-	s.texture = NewTextureFromBytes(s.Width, s.Height, s.pixels)
+	s.texture.Update(s.Width, s.Height, s.pixels)
 }
 
 func (s *Surface) draw(pos Point2, size Point2, t1 Point2, t2 Point2, tex *Texture) {
