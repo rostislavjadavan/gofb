@@ -1,6 +1,7 @@
 package gofb
 
 import (
+	"github.com/go-gl/gl/v2.1/gl"
 	"github.com/go-gl/gltext"
 	"os"
 )
@@ -26,5 +27,6 @@ func NewFont(filename string, size int32) (*Font, error) {
 // Draw text on the screen
 func (f *Font) Draw(str string, x int, y int, c Color) {
 	c.GL()
+	gl.LoadIdentity()
 	f.Handle.Printf(float32(x), float32(y), str)
 }
