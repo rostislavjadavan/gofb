@@ -5,7 +5,7 @@
 Framebuffer library for golang
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/rostislavjadavan/gofb)](https://goreportcard.com/report/github.com/rostislavjadavan/gofb)
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/rostislavjadavan/gofb?tab=doc)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/rostislavjadavan/gofb)](https://pkg.go.dev/github.com/rostislavjadavan/gofb)
 
 ## Example
 
