@@ -24,13 +24,13 @@ func main() {
 	surface := gofb.NewSurface(600, 600)
 
 	// Draw pixel into buffer
-	surface.SetPixel(300, 300, gofb.NewColor(255, 255, 255, 255))
+	surface.SetPixel(300, 300, gofb.NewColor3(255, 255, 255))
 
 	for w.IsRunning() {
 		w.StartFrame()
-		w.Clear(gofb.NewColor(0, 0, 0, 255))
+		w.Clear(gofb.ColorBlack)
 
-		// Draw buffer on screen
+		// Draw buffer on the screen
 		surface.Draw(0, 0)
 
 		w.FinalizeFrame()
