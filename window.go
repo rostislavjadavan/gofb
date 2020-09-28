@@ -1,10 +1,11 @@
 package gofb
 
 import (
-	"github.com/go-gl/gl/v2.1/gl"
-	"github.com/go-gl/glfw/v3.3/glfw"
 	"runtime"
 	"time"
+
+	"github.com/go-gl/gl/v2.1/gl"
+	"github.com/go-gl/glfw/v3.3/glfw"
 )
 
 // Window represents window object
@@ -21,7 +22,7 @@ type Window struct {
 	framesCount     int64
 
 	inputPress []bool
-	cursorPos  Point2
+	cursorPos  Vec2
 }
 
 // NewWindow create new OpenGL window
@@ -56,7 +57,7 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 	w.lastFrameTime = time.Now()
 	w.inputPress = make([]bool, 505)
 	window.SetKeyCallback(w.keyCallback)
-	w.cursorPos = NewPoint2(0, 0)
+	w.cursorPos = NewVec2(0, 0)
 	window.SetCursorPosCallback(w.cursorPositionCallback)
 	window.SetMouseButtonCallback(w.mouseButtonCallback)
 	w.running = true
@@ -66,7 +67,7 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 
 // Clear screen
 func (w *Window) Clear(c Color) {
-	c.GLClear()
+	c.glClear()
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 }
 
@@ -105,8 +106,18 @@ func (w *Window) IsInput(inputCode int) bool {
 	return w.inputPress[inputCode]
 }
 
+// SetKeyCallback set custom keyboard callback function
+func (w *Window) SetKeyCallback(cbfun glfw.KeyCallback) {
+	w.window.SetKeyCallback(cbfun)
+}
+
+// ResetKeyCallback reset back original keyboardcallback
+func (w *Window) ResetKeyCallback() {
+	w.window.SetKeyCallback(w.keyCallback)
+}
+
 // GetCursorPos get mouse cursor position
-func (w *Window) GetCursorPos() Point2 {
+func (w *Window) GetCursorPos() Vec2 {
 	return w.cursorPos
 }
 
@@ -139,8 +150,8 @@ func (w *Window) keyCallback(window *glfw.Window, key glfw.Key, scancode int, ac
 }
 
 func (w *Window) cursorPositionCallback(window *glfw.Window, x float64, y float64) {
-	w.cursorPos.X = float32(x)
-	w.cursorPos.Y = float32(y)
+	w.cursorPos.X = int(x)
+	w.cursorPos.Y = int(y)
 }
 
 func (w *Window) mouseButtonCallback(window *glfw.Window, button glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
