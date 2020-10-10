@@ -125,26 +125,36 @@ func (s *Surface) Clear(c Color) {
 	}
 }
 
+// Drawv surface on the screen
+func (s *Surface) Drawv(v Vec2) {
+	s.draw(
+		v,
+		NewVec2(s.Width*s.Scale, s.Height*s.Scale),
+		NewVec2f(0, 0),
+		NewVec2f(1, 1),
+		s.texture,
+	)
+}
+
 // Draw surface on the screen
 func (s *Surface) Draw(x int, y int) {
+	s.Drawv(NewVec2(x, y))
+}
+
+// DrawRegionv draw region of surface on the screen
+func (s *Surface) DrawRegionv(v Vec2, r Region) {
 	s.draw(
-		NewVec2(x, y),
-		NewVec2(s.Width*s.Scale, s.Height*s.Scale),
-		NewVec2(0, 0),
-		NewVec2(1, 1),
+		v,
+		NewVec2(r.W*s.Scale, r.H*s.Scale),
+		NewVec2f(float64(r.X)/float64(s.Width), float64(r.Y)/float64(s.Height)),
+		NewVec2f(float64(r.X+r.W)/float64(s.Width), float64(r.Y+r.H)/float64(s.Height)),
 		s.texture,
 	)
 }
 
 // DrawRegion draw region of surface on the screen
 func (s *Surface) DrawRegion(x int, y int, r Region) {
-	s.draw(
-		NewVec2(x, y),
-		NewVec2(r.W*s.Scale, r.H*s.Scale),
-		NewVec2(r.X/s.Width, r.Y/s.Height),
-		NewVec2((r.X+r.W)/s.Width, (r.Y+r.H)/s.Height),
-		s.texture,
-	)
+	s.DrawRegionv(NewVec2(x, y), r)
 }
 
 // Release surface from memory and gpu
@@ -157,7 +167,7 @@ func (s *Surface) update() {
 	s.texture.Update(s.Width, s.Height, s.pixels)
 }
 
-func (s *Surface) draw(pos Vec2, size Vec2, t1 Vec2, t2 Vec2, tex *Texture) {
+func (s *Surface) draw(pos Vec2, size Vec2, t1 Vec2f, t2 Vec2f, tex *Texture) {
 	if s.needsUpdate {
 		s.update()
 		s.needsUpdate = false

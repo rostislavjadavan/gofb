@@ -164,3 +164,22 @@ func (v *Vec2) floatX() float32 {
 func (v *Vec2) floatY() float32 {
 	return float32(v.Y)
 }
+
+// Vec2 2D vector
+type Vec2f struct {
+	X float64
+	Y float64
+}
+
+// NewVec2f return new instance
+func NewVec2f(x, y float64) Vec2f {
+	return Vec2f{X: x, Y: y}
+}
+
+func (v *Vec2f) floatX() float32 {
+	return float32(v.X)
+}
+
+func (v *Vec2f) floatY() float32 {
+	return float32(v.Y)
+}
