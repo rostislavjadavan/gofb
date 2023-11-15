@@ -1,1 +1,9 @@
 .idea
+examples/animation/animation
+examples/simple/images
+examples/simple/keyboard
+examples/simple/mouse
+examples/simple/roguelike
+examples/simple/simple
+examples/simple/text
+examples/simple/tunnel

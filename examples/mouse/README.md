@@ -1,0 +1,3 @@
+# Mouse input
+
+![](preview.gif)

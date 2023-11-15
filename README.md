@@ -1,4 +1,4 @@
-![](gofb_500.png)
+![](logo/gofb_500.png)
 
 # gofb
 
@@ -46,28 +46,24 @@ func main() {
 - draw pixel by pixel
 - load `png`, `jpg` images
 - scale to mimic pixel art
-- use custom `ttf` font 
+- use custom `ttf` font
 - sprite sheets (for tile set rendering)
 - keyboard and mouse input
 
 ## More examples
 
-http://github.com/rostislavjadavan/gofb-examples
+Take a look at all the examples in the [/examples](/examples) folder.
 
-![](https://github.com/rostislavjadavan/gofb-examples/raw/master/simple/preview.jpg)
-![](https://github.com/rostislavjadavan/gofb-examples/raw/master/animation/preview.gif)
-![](https://github.com/rostislavjadavan/gofb-examples/raw/master/tunnel/preview.jpg)
-![](https://github.com/rostislavjadavan/gofb-examples/raw/master/mouse/preview.gif)
-![](https://github.com/rostislavjadavan/gofb-examples/raw/master/roguelike/preview.jpg)
+![](examples/simple/preview.jpg)
+![](examples/animation/preview.gif)
+![](examples/tunnel/preview.jpg)
+![](examples/mouse/preview.gif)
+![](examples/roguelike/preview.jpg)
 
 ## Libraries used
 
 - https://github.com/go-gl/glfw
 - https://github.com/go-gl/gltext
-
-## Logo
-
-http://github.com/rostislavjadavan/gofb-logo
 
 ## License
 
