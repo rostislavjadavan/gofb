@@ -1,7 +1,4 @@
-# gofb-logo
-
-- Library: http://github.com/rostislavjadavan/gofb
-- Examples: http://github.com/rostislavjadavan/gofb/examples
+# gofb logo
 
 ## Full logo
 
