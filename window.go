@@ -111,7 +111,7 @@ func (w *Window) SetKeyCallback(cbfun glfw.KeyCallback) {
 	w.window.SetKeyCallback(cbfun)
 }
 
-// ResetKeyCallback reset back original keyboardcallback
+// ResetKeyCallback reset back original keyboard callback
 func (w *Window) ResetKeyCallback() {
 	w.window.SetKeyCallback(w.keyCallback)
 }

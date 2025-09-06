@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/rostislavjadavan/gofb"
 	"math"
 	"strconv"
+
+	"github.com/rostislavjadavan/gofb"
 )
 
 const (

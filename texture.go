@@ -1,13 +1,14 @@
 package gofb
 
 import (
-	"github.com/go-gl/gl/v2.1/gl"
 	_ "image/jpeg" // support for jpeg format
 	_ "image/png"  // support for png format
 	"strconv"
+
+	"github.com/go-gl/gl/v2.1/gl"
 )
 
-// Texture represent OpenGL texture
+// Texture represents OpenGL texture
 type Texture struct {
 	Handle uint32
 	Name   string
