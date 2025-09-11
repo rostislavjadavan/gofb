@@ -168,6 +168,10 @@ func (s *Surface) update() {
 }
 
 func (s *Surface) draw(pos Vec2, size Vec2, t1 Vec2f, t2 Vec2f, tex *Texture) {
+	if !openglInitialized {
+		panic(errors.New("cannot draw surface: OpenGL context not initialized. Create a Window first"))
+	}
+
 	if s.needsUpdate {
 		s.update()
 		s.needsUpdate = false

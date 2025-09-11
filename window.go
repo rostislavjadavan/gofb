@@ -52,6 +52,9 @@ func NewWindow(name string, width int, height int, fullscreen bool) *Window {
 		panic(err)
 	}
 
+	// Mark OpenGL as initialized for texture creation safety
+	openglInitialized = true
+
 	w := Window{Width: width, Height: height, Fullscreen: fullscreen, window: window}
 	w.set2DProjection()
 	w.lastFrameTime = time.Now()
@@ -76,6 +79,7 @@ func (w *Window) StartFrame() {
 	w.frameDeltaMs = time.Since(w.lastFrameTime).Milliseconds()
 	w.globalElapsedMs += w.frameDeltaMs
 	w.lastFrameTime = time.Now()
+	w.set2DProjection()
 }
 
 // FinalizeFrame will swap buffers and poll for events
@@ -128,12 +132,22 @@ func (w *Window) IsRunning() bool {
 
 // Destroy will close window
 func (w *Window) Destroy() {
-	defer glfw.Terminate()
+	defer func() {
+		openglInitialized = false
+		glfw.Terminate()
+	}()
 }
 
 // Stop running application
 func (w *Window) Stop() {
 	w.running = false
+}
+
+// GetContentScale returns the ratio between framebuffer size and window size
+// This is needed for proper HiDPI display handling
+func (w *Window) GetContentScale() float32 {
+	fbWidth, _ := w.window.GetFramebufferSize()
+	return float32(fbWidth) / float32(w.Width)
 }
 
 func (w *Window) keyCallback(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
@@ -211,4 +225,6 @@ func (w *Window) set2DProjection() {
 
 	gl.MatrixMode(gl.MODELVIEW)
 	gl.LoadIdentity()
+
+	globalRenderContext.scale = w.GetContentScale()
 }

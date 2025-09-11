@@ -1,6 +1,7 @@
 package gofb
 
 import (
+	"errors"
 	"math"
 
 	"github.com/go-gl/gl/v2.1/gl"
@@ -40,11 +41,17 @@ func (c *Color) GetAsInt() int {
 
 // GL set color to OpenGL context
 func (c *Color) glColor() {
+	if !openglInitialized {
+		panic(errors.New("cannot set color: OpenGL context not initialized. Create a Window first"))
+	}
 	gl.Color4ub(c.R, c.G, c.B, c.A)
 }
 
 // GLClear set color as OpenGL color for clearing the screen
 func (c *Color) glClear() {
+	if !openglInitialized {
+		panic(errors.New("cannot set clear color: OpenGL context not initialized. Create a Window first"))
+	}
 	gl.ClearColor(float32(c.R)/255, float32(c.G)/255, float32(c.B)/255, float32(c.A)/255)
 }
 

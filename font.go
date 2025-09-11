@@ -1,11 +1,20 @@
 package gofb
 
 import (
+	"errors"
 	"os"
 
 	"github.com/go-gl/gl/v2.1/gl"
 	"github.com/go-gl/gltext"
 )
+
+// RenderContext holds the current rendering context information
+type RenderContext struct {
+	scale float32
+}
+
+// Global render context that tracks HiDPI scaling
+var globalRenderContext = &RenderContext{scale: 1.0}
 
 // Font handle
 type Font struct {
@@ -32,7 +41,13 @@ func (f *Font) Drawv(str string, v Vec2, c Color) {
 
 // Draw text on the screen
 func (f *Font) Draw(str string, x, y int, c Color) {
+	if !openglInitialized {
+		panic(errors.New("cannot draw text: OpenGL context not initialized. Create a Window first"))
+	}
 	c.glColor()
 	gl.LoadIdentity()
-	f.Handle.Printf(float32(x), float32(y), str)
+	// Apply HiDPI scaling using global render context
+	scaledX := float32(x) * globalRenderContext.scale
+	scaledY := float32(y) * globalRenderContext.scale
+	f.Handle.Printf(scaledX, scaledY, str)
 }

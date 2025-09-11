@@ -1,12 +1,16 @@
 package gofb
 
 import (
+	"errors"
 	_ "image/jpeg" // support for jpeg format
 	_ "image/png"  // support for png format
 	"strconv"
 
 	"github.com/go-gl/gl/v2.1/gl"
 )
+
+// Global flag to track OpenGL context initialization
+var openglInitialized = false
 
 // Texture represents OpenGL texture
 type Texture struct {
@@ -18,6 +22,9 @@ type Texture struct {
 
 // Bind to texture to current context
 func (t *Texture) Bind() {
+	if !openglInitialized {
+		panic(errors.New("cannot bind texture: OpenGL context not initialized. Create a Window first"))
+	}
 	gl.BindTexture(gl.TEXTURE_2D, t.Handle)
 }
 
@@ -27,6 +34,9 @@ func (t *Texture) Release() {
 }
 
 func (t *Texture) Update(width int, height int, pixels *[]byte) {
+	if !openglInitialized {
+		panic(errors.New("cannot update texture: OpenGL context not initialized. Create a Window first"))
+	}
 	gl.BindTexture(gl.TEXTURE_2D, t.Handle)
 	gl.TexImage2D(
 		gl.TEXTURE_2D,
@@ -42,6 +52,10 @@ func (t *Texture) Update(width int, height int, pixels *[]byte) {
 
 // NewTextureFromBytes creates new texture from given byte array (expected is RGBA format)
 func NewTextureFromBytes(width int, height int, pixels *[]byte) *Texture {
+	if !openglInitialized {
+		panic(errors.New("cannot create texture: OpenGL context not initialized. Create a Window first before creating any Surface or Texture"))
+	}
+
 	var handle uint32
 	gl.Enable(gl.TEXTURE_2D)
 	gl.GenTextures(1, &handle)
