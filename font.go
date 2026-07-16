@@ -49,5 +49,5 @@ func (f *Font) Draw(str string, x, y int, c Color) {
 	// Apply HiDPI scaling using global render context
 	scaledX := float32(x) * globalRenderContext.scale
 	scaledY := float32(y) * globalRenderContext.scale
-	f.Handle.Printf(scaledX, scaledY, str)
+	f.Handle.Printf(scaledX, scaledY, "%s", str)
 }
